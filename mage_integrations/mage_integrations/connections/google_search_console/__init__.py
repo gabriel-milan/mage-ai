@@ -23,11 +23,11 @@ class GoogleSearchConsole(Connection):
 
     def connect(self):
         """Create a connection to the Google Search Console API and return service object.
-        
+
         Returns:
             service (object): Google Search Console service object.
         """
-        
+
         scope = ['https://www.googleapis.com/auth/webmasters']
         if self.credentials_info is None:
             credentials = service_account.Credentials.from_service_account_file(

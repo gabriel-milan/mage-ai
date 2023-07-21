@@ -261,6 +261,6 @@ def do_discover(resource_schema):
 
     streams.extend(core_streams)
     streams.extend(report_streams)
-    
+
     data = {"streams": streams}
     return data

@@ -374,4 +374,3 @@ class CouchbaseSourceTests(unittest.TestCase):
                 },
                 catalog.to_dict()
             )
-

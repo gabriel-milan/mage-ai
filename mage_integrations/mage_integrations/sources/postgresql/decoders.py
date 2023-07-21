@@ -13,12 +13,12 @@ INT64 = 8
 
 
 def convert_pg_ts(_ts_in_microseconds: int) -> datetime:
-    ts = datetime(2000, 1, 1, 0, 0, 0, 0, tzinfo=timezone.utc) 
+    ts = datetime(2000, 1, 1, 0, 0, 0, 0, tzinfo=timezone.utc)
     return ts + timedelta(microseconds=_ts_in_microseconds)
 
 
 def convert_bytes_to_int(_in_bytes: bytes) -> int:
-    return int.from_bytes(_in_bytes, byteorder='big', signed=True)    
+    return int.from_bytes(_in_bytes, byteorder='big', signed=True)
 
 
 def convert_bytes_to_utf8(_in_bytes: Union[bytes, bytearray]) -> str:
@@ -28,7 +28,7 @@ def convert_bytes_to_utf8(_in_bytes: Union[bytes, bytearray]) -> str:
 @dataclass(frozen=True)
 class ColumnData:
     # col_data_category is NOT the type. it means null value/toasted(not sent)/text formatted
-    col_data_category: Optional[str] 
+    col_data_category: Optional[str]
     col_data_length: Optional[int] = None
     col_data: Optional[str] = None
 
@@ -63,10 +63,10 @@ class PgoutputMessage(ABC):
         return convert_bytes_to_int(self.buffer.read(INT16))
 
     def read_int32(self) -> int:
-        return convert_bytes_to_int(self.buffer.read(INT32)) 
+        return convert_bytes_to_int(self.buffer.read(INT32))
 
     def read_int64(self) -> int:
-        return convert_bytes_to_int(self.buffer.read(INT64)) 
+        return convert_bytes_to_int(self.buffer.read(INT64))
 
     def read_utf8(self, n: int = 1) -> str:
         return convert_bytes_to_utf8(self.buffer.read(n))
@@ -91,7 +91,7 @@ class PgoutputMessage(ABC):
 
     def read_tuple_data(self) -> TupleData:
         """
-        TupleData 
+        TupleData
         Int16  Number of columns.
         Next, one of the following submessages appears for each column (except generated columns):
                 Byte1('n') Identifies the data as NULL value.
@@ -137,7 +137,7 @@ class Begin(PgoutputMessage):
     def decode_buffer(self):
         if self.byte1 != 'B':
             raise Exception('first byte in buffer does not match Begin message')
-        self.final_tx_lsn = self.read_int64() 
+        self.final_tx_lsn = self.read_int64()
         self.commit_tx_ts = self.read_timestamp()
         self.tx_xid = self.read_int64()
         return self
@@ -172,7 +172,7 @@ class Commit(PgoutputMessage):
 
     def __repr__(self):
         return f"\tOperation : COMMIT, \n\tbyte1 : {self.byte1}, \n\tflags : {self.flags}, \n\tlsn_commit : {self.lsn_commit}, " \
-               f"\n\tfinal_tx_lsn : {self.final_tx_lsn}, \n\tcommit_tx_ts : {self.commit_tx_ts}"     
+               f"\n\tfinal_tx_lsn : {self.final_tx_lsn}, \n\tcommit_tx_ts : {self.commit_tx_ts}"
 
 
 class Origin:
@@ -195,7 +195,7 @@ class Relation(PgoutputMessage):
     Int8 Replica identity setting for the relation (same as relreplident in pg_class).
         # select relreplident from pg_class where relname = 'test_table';
         # from reading the documentation and looking at the tables this is not int8 but a single character
-        # background: https://www.postgresql.org/docs/10/sql-altertable.html#SQL-CREATETABLE-REPLICA-IDENTITY 
+        # background: https://www.postgresql.org/docs/10/sql-altertable.html#SQL-CREATETABLE-REPLICA-IDENTITY
     Int16 Number of columns.
     Next, the following message part appears for each column (except generated columns):
         Int8 Flags for the column. Currently can be either 0 for no flags or 1 which marks the column as part of the key.
@@ -210,7 +210,7 @@ class Relation(PgoutputMessage):
     replica_identity_setting: str
     n_columns: int
     # TODO define column type, could eventually look this up from the DB
-    columns: List[Tuple[int, str, int, int]] 
+    columns: List[Tuple[int, str, int, int]]
 
     def decode_buffer(self):
         if self.byte1 != 'R':
@@ -228,7 +228,7 @@ class Relation(PgoutputMessage):
             data_type_id = self.read_int32()
             # TODO: check on use of signed / unsigned
             # check with select oid from pg_type where typname = <type>; timestamp == 1184, int4 = 23
-            col_modifier = self.read_int32()          
+            col_modifier = self.read_int32()
             self.columns.append((part_of_pkey, col_name, data_type_id, col_modifier))
 
     def __repr__(self):
@@ -258,7 +258,7 @@ class Insert(PgoutputMessage):
     """
     byte1: str
     relation_id: int
-    new_tuple_byte: str 
+    new_tuple_byte: str
     new_tuple: TupleData
 
     def decode_buffer(self):
@@ -336,7 +336,7 @@ class Delete(PgoutputMessage):
         if self.byte1 != 'D':
             raise Exception(f"first byte in buffer does not match Delete message (expected 'D', got '{self.byte1}'")
         self.relation_id = self.read_int32()
-        self.message_type = self.read_utf8() 
+        self.message_type = self.read_utf8()
         if self.message_type not in ['K','O']:
             raise Exception(f"message type byte is not 'K' or 'O', got : '{self.message_type}'")
         self.old_tuple = self.read_tuple_data()
@@ -379,7 +379,7 @@ def decode_message(_input_bytes: bytes) -> Optional[Union[Begin, Commit, Relatio
     if first_byte == 'B':
         output = Begin(_input_bytes)
     elif first_byte == "C":
-        output = Commit(_input_bytes)   
+        output = Commit(_input_bytes)
     elif first_byte == "R":
         output = Relation(_input_bytes)
     elif first_byte == "I":

@@ -5,21 +5,21 @@ from base import ZendeskTest
 
 class ZendeskAllFields(ZendeskTest):
     """Ensure running the tap with all streams and fields selected results in the replication of all fields."""
-     
+
     def name(self):
         return "zendesk_all_fields"
 
     def test_run(self):
         """
         • Verify no unexpected streams were replicated
-        • Verify that more than just the automatic fields are replicated for each stream. 
+        • Verify that more than just the automatic fields are replicated for each stream.
         • verify all fields for each stream are replicated
         """
-        
-        
+
+
         # Streams to verify all fields tests
         expected_streams = self.expected_check_streams()
-        
+
         expected_automatic_fields = self.expected_automatic_fields()
         conn_id = connections.ensure_connection(self)
 
@@ -51,7 +51,7 @@ class ZendeskAllFields(ZendeskTest):
         # Verify no unexpected streams were replicated
         synced_stream_names = set(synced_records.keys())
         self.assertSetEqual(expected_streams, synced_stream_names)
-        
+
         for stream in expected_streams:
             with self.subTest(stream=stream):
 
@@ -78,6 +78,6 @@ class ZendeskAllFields(ZendeskTest):
                     expected_all_keys = expected_all_keys - {'permanently_deleted'}
                 elif stream == "ticket_metrics":
                     expected_all_keys = expected_all_keys - {'status', 'instance_id', 'metric', 'type', 'time'}
-                            
+
                 # verify all fields for each stream are replicated
                 self.assertSetEqual(expected_all_keys, actual_all_keys)

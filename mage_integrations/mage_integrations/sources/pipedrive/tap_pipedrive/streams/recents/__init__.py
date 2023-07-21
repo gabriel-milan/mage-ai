@@ -26,7 +26,7 @@ class RecentsStream(PipedriveStream):
         # for /recents/ streams override default (schema name equals to endpoint) with items
         #singer.write_schema(self.schema, self.get_schema(), key_properties=self.key_properties)
         write_schema(self.schema, self.get_schema(), key_properties=self.key_properties,replication_method=self.replication_method)
-        
+
 
     def get_name(self):
         return self.schema

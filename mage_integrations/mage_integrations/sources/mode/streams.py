@@ -37,7 +37,7 @@ class BaseStream:
     parent = None
     default_data_key = "_embedded" # This is unique for Mode since the data comes under "_embedded" in the response
     data_key = None
-    
+
 
     def __init__(self, client: ModeClient, logger=LOGGER):
         self.client = client

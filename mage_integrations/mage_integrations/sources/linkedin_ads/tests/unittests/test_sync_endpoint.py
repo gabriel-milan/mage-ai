@@ -6,7 +6,7 @@ from tap_linkedin_ads.client import LinkedinClient
 
 @mock.patch("tap_linkedin_ads.sync.LOGGER.warning")
 class TestSyncEndpoint(unittest.TestCase):
-    
+
 
     @mock.patch("tap_linkedin_ads.sync.get_bookmark")
     @mock.patch("tap_linkedin_ads.sync.should_sync_stream")
@@ -15,7 +15,7 @@ class TestSyncEndpoint(unittest.TestCase):
     @mock.patch("tap_linkedin_ads.sync.get_selected_streams")
     @mock.patch("tap_linkedin_ads.sync.write_schema")
     def test_sync_endpoint_for_reference_organization_id_is_None(self,mock_write_schema,mock_get_selected_streams,mock_process_records,mock_client,mock_should_sync_stream,mock_get_bookmark,mocked_logger):
-        
+
         client=LinkedinClient('client_id', 'client_secret', 'refresh_token', 'access_token')
         catalog = None
         state={'currently_syncing': 'accounts'}
@@ -29,7 +29,7 @@ class TestSyncEndpoint(unittest.TestCase):
         id_fields=['content_reference']
         parent=None
         parent_id=111111111
-        
+
         mock_client.return_value = {'paging': {'start': 0, 'count': 100, 'links': [], 'total': 1}, 'elements': [{'owner': 'urn:li:organization:22222222', 'changeAuditStamps': {'created': {'time': 1564585620000}, 'lastModified': {'time': 1564585620000}}, 'contentReference': '111111111', 'name': 'Stitch Tableau', 'type': 'VIDEO', 'account': 'urn:li:sponsoredAccount:111111111', 'status': 'ACTIVE'}]}
         mock_process_records.return_value = "2019-07-31T15:07:00.000000Z",1
         mock_should_sync_stream.return_value = True, ""

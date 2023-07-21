@@ -14,7 +14,7 @@ class Mockresponse:
         self.content = content
         self.headers = headers
         self.raise_error = raise_error
-    
+
     def json(self):
         return self.json_data
 
@@ -25,7 +25,7 @@ class TestFetchAccessToken(unittest.TestCase):
         cl=LinkedinClient(None, None, None, 'access_token')
         cl.fetch_and_set_access_token()
         self.assertEquals(cl.access_token, 'access_token')
-    
+
     @mock.patch("requests.Session.post")
     def test_fetch_access_token_with_refresh_token(self, mock_session_post):
         """Test that when refresh token is passed in config properties, conection uses the new access token"""

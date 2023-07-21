@@ -173,7 +173,7 @@ class ModeClient(object):
 
         credentials = f"{self.__access_token}:{self.__password}"
         encrypted_credentials = base64.b64encode(credentials.encode('utf-8')).decode('utf-8')
-        
+
         headers['Authorization'] = 'Basic {}'.format(encrypted_credentials)
         headers['Accept'] = 'application/json'
         response = self.__session.get(
@@ -217,7 +217,7 @@ class ModeClient(object):
         credentials = f"{self.__access_token}:{self.__password}"
         encrypted_credentials = base64.b64encode(credentials.encode('utf-8')).decode('utf-8')
         kwargs['headers']['Authorization'] = 'Basic {}'.format(encrypted_credentials)
-        
+
         kwargs['headers']['Accept'] = 'application/json'
 
         if self.__user_agent:

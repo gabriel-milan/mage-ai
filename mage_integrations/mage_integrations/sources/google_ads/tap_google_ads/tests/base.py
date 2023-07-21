@@ -184,7 +184,7 @@ class GoogleAdsBase(unittest.TestCase):
             },
             # Custom Reports TODO
         }
-    
+
 
 
     def expected_sync_streams(self):

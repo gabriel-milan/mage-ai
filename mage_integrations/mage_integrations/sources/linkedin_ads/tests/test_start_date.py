@@ -71,7 +71,7 @@ class LinkedinAdsStartDateTest(TestLinkedinAdsBase):
         record_count_by_stream_2 = self.run_and_verify_sync(conn_id_2)
         synced_records_2 = runner.get_records_from_target_output()
 
-        # Verify the total number of records replicated in sync 1 is 
+        # Verify the total number of records replicated in sync 1 is
         # greater than the number of records replicated in sync 2
         self.assertGreater(sum(record_count_by_stream_1.values()), sum(record_count_by_stream_2.values()))
 
