@@ -236,7 +236,7 @@ class ColumnsStream(BaseStream):
                         title
                         type
                         width
-                    }    
+                    }
                 }
             }
         """

@@ -11,8 +11,8 @@ from json import JSONDecodeError
 from singer import set_currently_syncing, metadata
 from singer.catalog import Catalog, CatalogEntry, Schema
 from .config import BASE_URL, CONFIG_DEFAULTS
-from .exceptions import (PipedriveError, PipedriveNotFoundError, PipedriveBadRequestError, PipedriveUnauthorizedError, PipedrivePaymentRequiredError, 
-                        PipedriveForbiddenError, PipedriveGoneError, PipedriveUnsupportedMediaError, PipedriveUnprocessableEntityError, PipedriveTooManyRequestsError, 
+from .exceptions import (PipedriveError, PipedriveNotFoundError, PipedriveBadRequestError, PipedriveUnauthorizedError, PipedrivePaymentRequiredError,
+                        PipedriveForbiddenError, PipedriveGoneError, PipedriveUnsupportedMediaError, PipedriveUnprocessableEntityError, PipedriveTooManyRequestsError,
                         PipedriveTooManyRequestsInSecondError,PipedriveInternalServiceError, PipedriveNotImplementedError, PipedriveServiceUnavailableError)
 from .streams import (CurrenciesStream, ActivityTypesStream, FiltersStream, StagesStream, PipelinesStream,
                       RecentNotesStream, RecentUsersStream, RecentActivitiesStream, RecentDealsStream,
@@ -150,7 +150,7 @@ class PipedriveTap(object):
                 meta = metadata.to_map(meta)
                 meta[('properties', stream.state_field)]['inclusion'] = 'automatic'
                 meta = metadata.to_list(meta)
-         
+
             catalog.streams.append(CatalogEntry(
                 stream=stream.schema,
                 tap_stream_id=stream.schema,
@@ -360,7 +360,7 @@ class PipedriveTap(object):
             logger.debug('Required headers for rate throttling are not present in response header, '
                          'unable to throttle ..')
 
-def raise_for_error(response):   
+def raise_for_error(response):
     try:
         response.raise_for_status()
     except (requests.HTTPError, requests.ConnectionError) as error:

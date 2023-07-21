@@ -378,7 +378,7 @@ class Postmark(object):  # noqa: WPS230
                         f'{API_SCHEME}{API_BASE_URL}{API_MESSAGES_PATH}'
                         f'{API_OUTBOUND_PATH}{API_MESSAGEID}{API_DETAILS}'
                     )
-                    
+
                     details_response : httpx._models.Response = self.client.get(  # noqa
                         url2,
                         headers=self.headers,
@@ -395,8 +395,8 @@ class Postmark(object):  # noqa: WPS230
                     # Extract messageEvent types frome the MessageEvent list
                     messageEvent_types: str = ''
                     for event in details_messageEvents:
-                        messageEvent_types = messageEvent_types + event['Type']+',' 
-                    messageEvent_types =  messageEvent_types[:-1] # Get rid of the last comma                     
+                        messageEvent_types = messageEvent_types + event['Type']+','
+                    messageEvent_types =  messageEvent_types[:-1] # Get rid of the last comma
                     message['MessageEvents'] = messageEvent_types
 
                     yield cleaner(date_day, message)

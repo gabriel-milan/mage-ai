@@ -141,7 +141,7 @@ class Client():
     def __init__(self, config, logger=None, api_result_limit=100):
         self.config = config
         self.logger = logger if logger is not None else LOGGER
-        
+
         self.api_result_limit = api_result_limit
 
     def get_headers(self):
@@ -156,7 +156,7 @@ class Client():
     def make_request(self, url, method='get', params=None, body=None) -> Dict:
         if params is None:
             params = {}
-        
+
         config_request_timeout = self.config.get('request_timeout')
         if config_request_timeout and float(config_request_timeout):
             request_timeout = float(config_request_timeout)

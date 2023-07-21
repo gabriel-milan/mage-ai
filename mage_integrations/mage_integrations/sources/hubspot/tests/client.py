@@ -1235,7 +1235,7 @@ class TestClient():
         # Resets the access_token if the expiry time is less than or equal to the current time
         if self.CONFIG["token_expires"] <= datetime.datetime.utcnow():
             self.acquire_access_token_from_refresh_token()
-            
+
         if stream == 'companies':
             return self.update_companies(record_id)
         elif stream == 'contacts':
@@ -1473,7 +1473,7 @@ class TestClient():
         # Resets the access_token if the expiry time is less than or equal to the current time
         if self.CONFIG["token_expires"] <= datetime.datetime.utcnow():
             self.acquire_access_token_from_refresh_token()
-            
+
         if stream == 'deal_pipelines':
             self.delete_deal_pipelines(records, count)
         elif stream == 'contact_lists':

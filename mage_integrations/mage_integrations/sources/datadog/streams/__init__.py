@@ -35,7 +35,7 @@ class DatadogStream:
         Return the URL to hit for data from this stream.
         """
         return f'{self.BASE_PATH}{self.URL_PATH}'
-    
+
     def load_data(
         self,
         bookmarks: Dict = None,
@@ -161,7 +161,7 @@ class IncrementalSearchableStream(DatadogStream):
             return {
                 'cursor': cursor
             }
-        
+
     def make_request(self, params):
         return self.client.make_request(
             url=self.get_url(),

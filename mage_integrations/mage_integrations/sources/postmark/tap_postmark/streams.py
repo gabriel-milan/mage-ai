@@ -299,7 +299,7 @@ STREAMS: MappingProxyType = MappingProxyType({
                 'map': 'track_opens', 'null': True,
             },
             'Subject' : {
-                'map': 'subject', 'null': True, 
+                'map': 'subject', 'null': True,
             },
         }
     },

@@ -134,4 +134,3 @@ class TestHubspotInterruptedSync1(HubspotBaseTest):
 
                 else:
                     raise AssertionError(f"Replication method is {replication_method} for stream: {stream}")
-

@@ -64,4 +64,3 @@ class ZendeskMinimalSelection(ZendeskTest):
                 pk_set = self.expected_pks()[stream]
                 for pk in pk_set:
                     self.assertIsNotNone(m.get('data', {}).get(pk), msg="Missing primary-key for message {}".format(m))
-

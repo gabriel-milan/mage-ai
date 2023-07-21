@@ -14,14 +14,14 @@ class ZendeskPagination(ZendeskTest):
 
     def test_run(self):
         """
-        • Verify that for each stream you can get multiple pages of data.  
+        • Verify that for each stream you can get multiple pages of data.
         This requires we ensure more than 1 page of data exists at all times for any given stream.
         • Verify by pks that the data replicated matches the data we expect.
 
         Outstanding Work:
         TDL-17980 [tap-zendesk][tap-tester] Enable CRUD operations for `tags` stream to stabilize pagination test
         """
-        
+
         # Streams to verify all fields tests
         expected_streams = self.expected_check_streams()
         expected_streams = expected_streams - {
@@ -53,7 +53,7 @@ class ZendeskPagination(ZendeskTest):
 
                 # expected values
                 expected_primary_keys = self.expected_primary_keys()[stream]
-                
+
                 # verify that we can paginate with all fields selected
                 record_count_sync = record_count_by_stream.get(stream, 0)
                 self.assertGreater(record_count_sync, self.API_LIMIT,

@@ -21,7 +21,7 @@ class DynamicTypingRecentsStream(RecentsStream):
 
             while self.fields_more_items_in_collection:
 
-                fields_params = {"limit" : self.fields_limit, "start" : self.fields_start} 
+                fields_params = {"limit" : self.fields_limit, "start" : self.fields_start}
 
                 try:
                     fields_response = self.tap.execute_request(endpoint=self.fields_endpoint, params=fields_params)
@@ -54,7 +54,7 @@ class DynamicTypingRecentsStream(RecentsStream):
                             elif property['field_type'] in ['timestamp']:
                                 property_content['format'] = 'date-time'
 
-                            # allow all dynamic properties to be null since this 
+                            # allow all dynamic properties to be null since this
                             # happens in practice probably because a property could
                             # be marked mandatory for some amount of time and not
                             # mandatory for another amount of time

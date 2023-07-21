@@ -40,4 +40,3 @@ class ZendeskCustomFieldsDiscover(ZendeskTest):
             # with their own set of properties
             self.assertIsNotNone(properties.get('{}_fields'.format(schema[0]), {}).get('properties'),
                                  msg='{}_fields not present in schema!'.format(schema[0]))
-

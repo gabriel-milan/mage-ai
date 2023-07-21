@@ -29,7 +29,7 @@ class Client(BaseClient):
             auth=(self.config['client_id'], self.config['client_secret']),
         )
         json_response = response.json()
-      
+
         return json_response.get('access_token') if json_response is not None else None
 
     def get_headers(self):

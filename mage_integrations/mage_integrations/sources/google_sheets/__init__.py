@@ -237,7 +237,7 @@ class GoogleSheets(Source):
         }
 
         # used for checking uniqueness
-        header_list = [] 
+        header_list = []
         columns = []
         prior_header = None
         i = 0
@@ -389,7 +389,7 @@ class GoogleSheets(Source):
                 break
 
             else:
-                # skipped < 2 prepare `columns` dictionary with index, letter, column name, column type and 
+                # skipped < 2 prepare `columns` dictionary with index, letter, column name, column type and
                 # if the column is to be skipped or not for each column in the list
                 column = {}
                 column = {

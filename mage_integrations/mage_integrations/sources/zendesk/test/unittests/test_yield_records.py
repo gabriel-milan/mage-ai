@@ -6,7 +6,7 @@ from tap_zendesk.streams import Stream, TicketAudits, Tickets, zendesk_metrics
 from tap_zendesk.sync import sync_stream
 from tap_zendesk import Zenpy
 import json
-     
+
 class Zenpy():
     def __init__(self) -> None:
         pass
@@ -175,9 +175,9 @@ def test_yield_records(mocked_log, mocked_audits_stream, mocked_comments_stream,
     metrics = []
     comments = []
 
-    # the yield returns a list with the first element as the parent stream tickets record 
-    # and other elements as a tuple with the first element as the name of the stream and the second element 
-    # as the record of that stream. Hence we are checking if each element of the stream and appending in our 
+    # the yield returns a list with the first element as the parent stream tickets record
+    # and other elements as a tuple with the first element as the name of the stream and the second element
+    # as the record of that stream. Hence we are checking if each element of the stream and appending in our
     # custom list and asserting all the lists at last.
     for count, each in enumerate(expected_tickets):
         if count == 0:

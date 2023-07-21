@@ -139,7 +139,7 @@ class PipedriveStream(object):
 
 class PipedriveIterStream(PipedriveStream):
     id_list = True
-    
+
     def get_deal_ids(self, tap):
 
         # note when the stream starts syncing

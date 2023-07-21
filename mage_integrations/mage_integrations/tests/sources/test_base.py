@@ -252,7 +252,7 @@ class BaseSourceTests(unittest.TestCase):
             with patch.object(source, 'load_data') as mock_load_data:
                 source.sync_stream(stream)
                 mock_get_bookmark_props.assert_called_with(stream)
-                mock_load_data.assert_called_once() 
+                mock_load_data.assert_called_once()
 
     def test_write_records(self):
         source = Source(
@@ -371,7 +371,7 @@ class BaseSourceTests(unittest.TestCase):
                 'tap_stream_id': 'demo_users',
             },
         )
-    
+
     def test_load_schemas_from_folder(self):
         # Testing with Stripe source, since not all of the
         # integration sources have "schemas" folders.

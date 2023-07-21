@@ -5,17 +5,17 @@ from datetime import datetime
 
 class ZendeskStartDate(ZendeskTest):
     """
-    Ensure both all expected streams respect the start date. Run tap in check mode, 
+    Ensure both all expected streams respect the start date. Run tap in check mode,
     run 1st sync with start date = few days ago, run check mode and 2nd sync on a new connection with start date = today.
     """
 
-    
+
     start_date_1 = ""
     start_date_2 = ""
 
     def name(self):
         return "zendesk_start_date_test"
-    
+
     def test_run(self):
         """
         Test that the start_date configuration is respected
@@ -26,14 +26,14 @@ class ZendeskStartDate(ZendeskTest):
         """
         self.run_test(days=1172, expected_streams=self.expected_check_streams()-{"ticket_forms"})
         self.run_test(days=1774, expected_streams={"ticket_forms"})
-        
+
     def run_test(self, days, expected_streams):
         self.start_date_1 = self.get_properties().get('start_date')
         self.start_date_2 = self.timedelta_formatted(self.start_date_1, days=days)
         self.start_date = self.start_date_1
 
         expected_streams = expected_streams
-        
+
         ##########################################################################
         # First Sync
         ##########################################################################
@@ -57,7 +57,7 @@ class ZendeskStartDate(ZendeskTest):
         ##########################################################################
         # Update START DATE Between Syncs
         ##########################################################################
-        
+
         print("REPLICATION START DATE CHANGE: {} ===>>> {} ".format(
             self.start_date, self.start_date_2))
         self.start_date = self.start_date_2
@@ -152,9 +152,9 @@ class ZendeskStartDate(ZendeskTest):
 
                 else:
                     # Given below streams are child stremas of parent stream `tickets` and tickets is incremental streams
-                    # Child streams also behave like incremental streams but does not save it's own state. So, it don't 
+                    # Child streams also behave like incremental streams but does not save it's own state. So, it don't
                     # have same no of record on second sync and first sync.
-                    
+
                     # Verify that the 2nd sync with a later start date replicates the same number of
                     # records as the 1st sync.
                     if not stream in ["ticket_comments", "ticket_audits", "ticket_metrics"]:
